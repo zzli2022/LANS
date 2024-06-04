@@ -17,8 +17,9 @@ Code  and Data for ACL2024 Findings paper: "[*LANS: A Layout-Aware Neural Solver
 
 
 ## PGPS9K Dataset
-You could download the dataset from [Dataset Homepage](http://www.nlpr.ia.ac.cn/databases/CASIA-PGPS9K) or [Google Drive](https://drive.google.com/file/d/1xIloVheqwYCOI6XA84Yh_djyaVlQgjOo/view?usp=drive_link).
+You could download the dataset from [Dataset Homepage](http://www.nlpr.ia.ac.cn/databases/CASIA-PGPS9K).
 In default, unzip the dataset file to the fold `./datasets`.
+<!--or [Google Drive](https://drive.google.com/file/d/1xIloVheqwYCOI6XA84Yh_djyaVlQgjOo/view?usp=drive_link)-->
 
 
 ## Multimodal Layout-Aware Pre-training & LANS Finetuning
