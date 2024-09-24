@@ -58,7 +58,7 @@ def get_parser():
     # dataset      
     ################################################################################
     parser.add_argument('--dataset', default="PGPS9K", type=str, choices=dataset_list)
-    parser.add_argument('--dataset_dir', default='/mnt/pfs/jinfeng_team/MMGroup/lzz/data/PGPS9K_all')
+    parser.add_argument('--dataset_dir', default='./data/PGPS9K_all')
     parser.add_argument('--pretrain_vis_path', default='')
     parser.add_argument('--vocab_src_path', default='./vocab/vocab_src.txt')
     parser.add_argument('--vocab_tgt_path', default='./vocab/vocab_tgt.txt')

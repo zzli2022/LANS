@@ -6,7 +6,7 @@
 				criterion: MaskedCrossEntropy
 				d_ff_hidden: 2048
 				dataset: Geometry3K
-				dataset_dir: /mnt/pfs/jinfeng_team/MMGroup/lzz/data/PGPS9K_all
+				dataset_dir: ./data/PGPS9K_all
 				debug: False
 				decoder_embedding_size: 512
 				decoder_hidden_size: 512
@@ -36,7 +36,7 @@
 				nprocs: 1
 				optimizer_type: ADAMW
 				pretrain_emb_path: 
-				pretrain_path: /mnt/pfs/jinfeng_team/MMGroup/lzz/code/LANS/log/0602/2024-06-02-02-00-17/480.pth
+				pretrain_path: log/0602/2024-06-02-02-00-17/480.pth
 				pretrain_vis_path: 
 				print_freq: 20
 				project_dropout: 0.2
