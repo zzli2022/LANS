@@ -1,0 +1,192 @@
+2024-06-02 14:48:52,751 - INFO: ============ Initialized logger ============
+2024-06-02 14:48:52,751 - INFO: 
+				batch_size: 256
+				beam_size: 10
+				cosine_decay_end: 0.0
+				criterion: MaskedCrossEntropy
+				d_ff_hidden: 2048
+				dataset: Geometry3K
+				dataset_dir: /mnt/pfs/jinfeng_team/MMGroup/lzz/data/PGPS9K_all
+				debug: False
+				decoder_embedding_size: 512
+				decoder_hidden_size: 512
+				decoder_layers: 2
+				decoder_type: rnn_decoder
+				diagram_size: 256
+				dropout_rate: 0.2
+				dump_path: ./test_merge/0602/2024-06-02-14-48-52
+				encoder_embedding_size: 256
+				encoder_hidden_size: 512
+				encoder_layers: 2
+				encoder_type: gru
+				eval_epoch: 40
+				eval_method: completion
+				evaluate_only: True
+				group_attention_layers: 1
+				group_head_num: 8
+				img_loc_match: False
+				img_patch_size: 32
+				init_method: env://
+				local_rank: 0
+				lr: 0.001
+				lr_LM: 0.0001
+				max_epoch: 540
+				max_input_len: 400
+				max_output_len: 40
+				nprocs: 1
+				optimizer_type: ADAMW
+				pretrain_emb_path: 
+				pretrain_path: /mnt/pfs/jinfeng_team/MMGroup/lzz/software/3399.pth
+				pretrain_vis_path: 
+				print_freq: 20
+				project_dropout: 0.2
+				project_type: cnn
+				random_prob: 0.5
+				resume_model: log/0602/2024-06-02-02-00-17/480.pth
+				scheduler_factor: 0.5
+				scheduler_step: [160, 280, 360, 440, 500]
+				scheduler_type: warmup
+				seed: 202302
+				trim_min_count: 5
+				use_pretrain: True
+				visual_backbone: ResNet10
+				vocab_src_path: ./vocab/vocab_src.txt
+				vocab_tgt_path: ./vocab/vocab_tgt.txt
+				warm_epoch: 40
+				weight_decay: 0.01
+				without_stru: False
+				workers: 4
+2024-06-02 14:48:52,751 - INFO: The experiment results will be stored in ./test_merge/0602/2024-06-02-14-48-52
+2024-06-02 14:48:54,604 - INFO: Visual backbone choose to train from scratch
+2024-06-02 14:48:54,835 - INFO: Network(
+  (encoder): GRU(
+    (gru): GRU(256, 512, num_layers=2, batch_first=True, dropout=0.2, bidirectional=True)
+    (dropout): Dropout(p=0.2, inplace=False)
+  )
+  (fusioner): MMFusionBlock(
+    (cross_group_attention): MMGroupAttention(
+      (linears): ModuleList(
+        (0-2): 3 x Linear(in_features=512, out_features=512, bias=True)
+      )
+      (dropout): Dropout(p=0.2, inplace=False)
+    )
+    (cross_onelayer): Encoder(
+      (layers): ModuleList(
+        (0): EncoderLayer(
+          (self_attn): MMGroupAttention(
+            (linears): ModuleList(
+              (0-2): 3 x Linear(in_features=512, out_features=512, bias=True)
+            )
+            (dropout): Dropout(p=0.2, inplace=False)
+          )
+          (feed_forward): PositionwiseFeedForward(
+            (w_1): Linear(in_features=512, out_features=2048, bias=True)
+            (w_2): Linear(in_features=2048, out_features=512, bias=True)
+            (dropout): Dropout(p=0.2, inplace=False)
+          )
+          (sublayer): ModuleList(
+            (0-1): 2 x SublayerConnection(
+              (norm): LayerNorm()
+              (dropout): Dropout(p=0.2, inplace=False)
+            )
+          )
+        )
+      )
+      (norm): LayerNorm()
+    )
+  )
+  (decoder): DecoderRNN(
+    (em_dropout): Dropout(p=0.2, inplace=False)
+    (embedding_tgt): Embedding(55, 512, padding_idx=0)
+    (gru): GRU(1024, 512, num_layers=2, batch_first=True, dropout=0.2)
+    (attn): Attn(
+      (attn): Linear(in_features=1024, out_features=512, bias=True)
+      (score): Linear(in_features=512, out_features=1, bias=False)
+    )
+    (score): Score(
+      (attn): Linear(in_features=1536, out_features=512, bias=True)
+      (score): Linear(in_features=512, out_features=1, bias=False)
+    )
+  )
+  (pretrain_module): TransformerPretrain(
+    (visual_extractor): ResNet(
+      (trunk): Sequential(
+        (0): Conv2d(3, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
+        (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): ReLU()
+        (3): MaxPool2d(kernel_size=3, stride=2, padding=1, dilation=1, ceil_mode=False)
+        (4): SimpleBlock(
+          (C1): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (BN1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (C2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (BN2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu1): ReLU(inplace=True)
+          (relu2): ReLU(inplace=True)
+        )
+        (5): SimpleBlock(
+          (C1): Conv2d(64, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+          (BN1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (C2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (BN2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu1): ReLU(inplace=True)
+          (relu2): ReLU(inplace=True)
+          (shortcut): Conv2d(64, 128, kernel_size=(1, 1), stride=(2, 2), bias=False)
+          (BNshortcut): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (6): SimpleBlock(
+          (C1): Conv2d(128, 256, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+          (BN1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (C2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (BN2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu1): ReLU(inplace=True)
+          (relu2): ReLU(inplace=True)
+          (shortcut): Conv2d(128, 256, kernel_size=(1, 1), stride=(2, 2), bias=False)
+          (BNshortcut): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (7): SimpleBlock(
+          (C1): Conv2d(256, 512, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+          (BN1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (C2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (BN2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu1): ReLU(inplace=True)
+          (relu2): ReLU(inplace=True)
+          (shortcut): Conv2d(256, 512, kernel_size=(1, 1), stride=(2, 2), bias=False)
+          (BNshortcut): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+      )
+    )
+    (visual_emb_unify): Linear(in_features=512, out_features=256, bias=True)
+    (dropout): Dropout(p=0.2, inplace=False)
+    (transformer_en): TransformerEncoder(
+      (encoder): TransformerEncoder(
+        (layers): ModuleList(
+          (0-5): 6 x TransformerEncoderLayer(
+            (self_attn): MultiheadAttention(
+              (out_proj): NonDynamicallyQuantizableLinear(in_features=256, out_features=256, bias=True)
+            )
+            (linear1): Linear(in_features=256, out_features=1024, bias=True)
+            (dropout): Dropout(p=0.2, inplace=False)
+            (linear2): Linear(in_features=1024, out_features=256, bias=True)
+            (norm1): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+            (norm2): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+            (dropout1): Dropout(p=0.2, inplace=False)
+            (dropout2): Dropout(p=0.2, inplace=False)
+          )
+        )
+        (norm): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+      )
+      (position_text): PositionalEncoding(
+        (dropout): Dropout(p=0.1, inplace=False)
+      )
+      (position_img): LearnedPositionEncoding(
+        (embeddings): Embedding(100, 256)
+      )
+      (img_pos): Embedding(64, 256)
+    )
+    (text_embedding_src): Embedding(322, 256, padding_idx=0)
+    (class_tag_embedding): Embedding(6, 256, padding_idx=0)
+    (sect_tag_embedding): Embedding(4, 256, padding_idx=0)
+  )
+)
+2024-06-02 14:48:55,076 - INFO: The whole model has been loaded from log/0602/2024-06-02-02-00-17/480.pth
+2024-06-02 14:48:55,077 - INFO: The model resumes from epoch 480

@@ -23,7 +23,6 @@ In default, unzip the dataset file to the fold `./datasets`.
 
 
 ## Multimodal Layout-Aware Pre-training & LANS Finetuning
-code comming soon
 <!-- ## Multimodal Layout-Aware Pre-training
 code comming soon
 
